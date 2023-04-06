@@ -52,16 +52,20 @@ create.addEventListener("click", () => {
     //     dataProduct.push(newProduct);
     // }
 
-    if (mood === 'Create') {
-        dataProduct.push(newProduct);
-    } else {
-        dataProduct[tmp] = newProduct;
-        mood = 'Create';
-        create.innerHTML = 'Create';
+    if (title.value != '' &&
+        price.value != '' &&
+        category.value != '') {
+        if (mood === 'Create') {
+            dataProduct.push(newProduct);
+        } else {
+            dataProduct[tmp] = newProduct;
+            mood = 'Create';
+            create.innerHTML = 'Create';
+        }
+        clearData();
     }
     localStorage.setItem('product', JSON.stringify(dataProduct));
 
-    clearData();
     showData();
 });
 
@@ -148,17 +152,12 @@ function updateData(i) {
 }
 
 // Search
-
-
-
 function getSearchMood() {
 
     let searchMood = 'Title',
         selectElement = document.getElementById('searchSelector'),
         selectedOption = selectElement.options[selectElement.selectedIndex],
         search = document.getElementById('search');
-
-    search.focus();
 
     if (selectedOption.value == 0) {
         searchMood = 'Title';
@@ -179,6 +178,9 @@ function getSearchMood() {
     }
 
     search.placeholder = `Search By ${searchMood}`;
+    search.focus();
+    search.value = '';
+    showData();
 }
 
 function searchData(value) {
@@ -186,8 +188,8 @@ function searchData(value) {
         selectElement = document.getElementById('searchSelector'),
         selectedOption = selectElement.options[selectElement.selectedIndex];
 
-    if (selectedOption.value == 0) {
-        for (let i = 0; i < dataProduct.length; i++) {
+    for (let i = 0; i < dataProduct.length; i++) {
+        if (selectedOption.value == 0) {
             if (dataProduct[i].title.toLowerCase().includes(value.toLowerCase())) {
                 table += `
                 <tr>
@@ -205,145 +207,134 @@ function searchData(value) {
                 <tr>
                 `;
             }
-        }
-    } else if (selectedOption.value == 1) {
-        for (let i = 0; i < dataProduct.length; i++) {
+        } else if (selectedOption.value == 1) {
             if (dataProduct[i].price.includes(value)) {
                 table += `
-                <tr>
-                    <td>${i + 1}</td>
-                    <td>${dataProduct[i].title}</td>
-                    <td>${dataProduct[i].price} £</td>
-                    <td>${dataProduct[i].taxes} £</td>
-                    <td>${dataProduct[i].ads} £</td>
-                    <td>${dataProduct[i].discount} £</td>
-                    <td>${dataProduct[i].total} £</td>
-                    <td>${dataProduct[i].category}</td>
-                    <td>${dataProduct[i].count}</td>
-                    <td><button onclick=updateData(${i}) id="update">Update</button></td>
-                    <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
-                <tr>
-                `;
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${dataProduct[i].title}</td>
+                        <td>${dataProduct[i].price} £</td>
+                        <td>${dataProduct[i].taxes} £</td>
+                        <td>${dataProduct[i].ads} £</td>
+                        <td>${dataProduct[i].discount} £</td>
+                        <td>${dataProduct[i].total} £</td>
+                        <td>${dataProduct[i].category}</td>
+                        <td>${dataProduct[i].count}</td>
+                        <td><button onclick=updateData(${i}) id="update">Update</button></td>
+                        <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
+                    <tr>
+                    `;
             }
-        }
-    } else if (selectedOption.value == 2) {
-        for (let i = 0; i < dataProduct.length; i++) {
+        } else if (selectedOption.value == 2) {
             if (dataProduct[i].taxes.includes(value)) {
                 table += `
-                <tr>
-                    <td>${i + 1}</td>
-                    <td>${dataProduct[i].title}</td>
-                    <td>${dataProduct[i].price} £</td>
-                    <td>${dataProduct[i].taxes} £</td>
-                    <td>${dataProduct[i].ads} £</td>
-                    <td>${dataProduct[i].discount} £</td>
-                    <td>${dataProduct[i].total} £</td>
-                    <td>${dataProduct[i].category}</td>
-                    <td>${dataProduct[i].count}</td>
-                    <td><button onclick=updateData(${i}) id="update">Update</button></td>
-                    <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
-                <tr>
-                `;
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${dataProduct[i].title}</td>
+                        <td>${dataProduct[i].price} £</td>
+                        <td>${dataProduct[i].taxes} £</td>
+                        <td>${dataProduct[i].ads} £</td>
+                        <td>${dataProduct[i].discount} £</td>
+                        <td>${dataProduct[i].total} £</td>
+                        <td>${dataProduct[i].category}</td>
+                        <td>${dataProduct[i].count}</td>
+                        <td><button onclick=updateData(${i}) id="update">Update</button></td>
+                        <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
+                    <tr>
+                    `;
             }
-        }
-    } else if (selectedOption.value == 3) {
-        for (let i = 0; i < dataProduct.length; i++) {
+        } else if (selectedOption.value == 3) {
             if (dataProduct[i].ads.includes(value)) {
                 table += `
-                <tr>
-                    <td>${i + 1}</td>
-                    <td>${dataProduct[i].title}</td>
-                    <td>${dataProduct[i].price} £</td>
-                    <td>${dataProduct[i].taxes} £</td>
-                    <td>${dataProduct[i].ads} £</td>
-                    <td>${dataProduct[i].discount} £</td>
-                    <td>${dataProduct[i].total} £</td>
-                    <td>${dataProduct[i].category}</td>
-                    <td>${dataProduct[i].count}</td>
-                    <td><button onclick=updateData(${i}) id="update">Update</button></td>
-                    <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
-                <tr>
-                `;
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${dataProduct[i].title}</td>
+                        <td>${dataProduct[i].price} £</td>
+                        <td>${dataProduct[i].taxes} £</td>
+                        <td>${dataProduct[i].ads} £</td>
+                        <td>${dataProduct[i].discount} £</td>
+                        <td>${dataProduct[i].total} £</td>
+                        <td>${dataProduct[i].category}</td>
+                        <td>${dataProduct[i].count}</td>
+                        <td><button onclick=updateData(${i}) id="update">Update</button></td>
+                        <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
+                    <tr>
+                    `;
             }
-        }
-    } else if (selectedOption.value == 4) {
-        for (let i = 0; i < dataProduct.length; i++) {
+        } else if (selectedOption.value == 4) {
+
             if (dataProduct[i].discount.includes(value)) {
                 table += `
-                <tr>
-                    <td>${i + 1}</td>
-                    <td>${dataProduct[i].title}</td>
-                    <td>${dataProduct[i].price} £</td>
-                    <td>${dataProduct[i].taxes} £</td>
-                    <td>${dataProduct[i].ads} £</td>
-                    <td>${dataProduct[i].discount} £</td>
-                    <td>${dataProduct[i].total} £</td>
-                    <td>${dataProduct[i].category}</td>
-                    <td>${dataProduct[i].count}</td>
-                    <td><button onclick=updateData(${i}) id="update">Update</button></td>
-                    <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
-                <tr>
-                `;
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${dataProduct[i].title}</td>
+                        <td>${dataProduct[i].price} £</td>
+                        <td>${dataProduct[i].taxes} £</td>
+                        <td>${dataProduct[i].ads} £</td>
+                        <td>${dataProduct[i].discount} £</td>
+                        <td>${dataProduct[i].total} £</td>
+                        <td>${dataProduct[i].category}</td>
+                        <td>${dataProduct[i].count}</td>
+                        <td><button onclick=updateData(${i}) id="update">Update</button></td>
+                        <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
+                    <tr>
+                    `;
             }
-        }
-    } else if (selectedOption.value == 5) {
-        for (let i = 0; i < dataProduct.length; i++) {
+        } else if (selectedOption.value == 5) {
             if (dataProduct[i].total.includes(value)) {
                 table += `
-                <tr>
-                    <td>${i + 1}</td>
-                    <td>${dataProduct[i].title}</td>
-                    <td>${dataProduct[i].price} £</td>
-                    <td>${dataProduct[i].taxes} £</td>
-                    <td>${dataProduct[i].ads} £</td>
-                    <td>${dataProduct[i].discount} £</td>
-                    <td>${dataProduct[i].total} £</td>
-                    <td>${dataProduct[i].category}</td>
-                    <td>${dataProduct[i].count}</td>
-                    <td><button onclick=updateData(${i}) id="update">Update</button></td>
-                    <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
-                <tr>
-                `;
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${dataProduct[i].title}</td>
+                        <td>${dataProduct[i].price} £</td>
+                        <td>${dataProduct[i].taxes} £</td>
+                        <td>${dataProduct[i].ads} £</td>
+                        <td>${dataProduct[i].discount} £</td>
+                        <td>${dataProduct[i].total} £</td>
+                        <td>${dataProduct[i].category}</td>
+                        <td>${dataProduct[i].count}</td>
+                        <td><button onclick=updateData(${i}) id="update">Update</button></td>
+                        <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
+                    <tr>
+                    `;
             }
-        }
-    } else if (selectedOption.value == 6) {
-        for (let i = 0; i < dataProduct.length; i++) {
-            if (dataProduct[i].category.includes(value)) {
+        } else if (selectedOption.value == 6) {
+
+            if (dataProduct[i].category.toLowerCase().includes(value.toLowerCase())) {
                 table += `
-                <tr>
-                    <td>${i + 1}</td>
-                    <td>${dataProduct[i].title}</td>
-                    <td>${dataProduct[i].price} £</td>
-                    <td>${dataProduct[i].taxes} £</td>
-                    <td>${dataProduct[i].ads} £</td>
-                    <td>${dataProduct[i].discount} £</td>
-                    <td>${dataProduct[i].total} £</td>
-                    <td>${dataProduct[i].category}</td>
-                    <td>${dataProduct[i].count}</td>
-                    <td><button onclick=updateData(${i}) id="update">Update</button></td>
-                    <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
-                <tr>
-                `;
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${dataProduct[i].title}</td>
+                        <td>${dataProduct[i].price} £</td>
+                        <td>${dataProduct[i].taxes} £</td>
+                        <td>${dataProduct[i].ads} £</td>
+                        <td>${dataProduct[i].discount} £</td>
+                        <td>${dataProduct[i].total} £</td>
+                        <td>${dataProduct[i].category}</td>
+                        <td>${dataProduct[i].count}</td>
+                        <td><button onclick=updateData(${i}) id="update">Update</button></td>
+                        <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
+                    <tr>
+                    `;
             }
-        }
-    } else if (selectedOption.value == 7) {
-        for (let i = 0; i < dataProduct.length; i++) {
+        } else if (selectedOption.value == 7) {
+
             if (dataProduct[i].count.includes(value)) {
                 table += `
-                <tr>
-                    <td>${i + 1}</td>
-                    <td>${dataProduct[i].title}</td>
-                    <td>${dataProduct[i].price} £</td>
-                    <td>${dataProduct[i].taxes} £</td>
-                    <td>${dataProduct[i].ads} £</td>
-                    <td>${dataProduct[i].discount} £</td>
-                    <td>${dataProduct[i].total} £</td>
-                    <td>${dataProduct[i].category}</td>
-                    <td>${dataProduct[i].count}</td>
-                    <td><button onclick=updateData(${i}) id="update">Update</button></td>
-                    <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
-                <tr>
-                `;
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${dataProduct[i].title}</td>
+                        <td>${dataProduct[i].price} £</td>
+                        <td>${dataProduct[i].taxes} £</td>
+                        <td>${dataProduct[i].ads} £</td>
+                        <td>${dataProduct[i].discount} £</td>
+                        <td>${dataProduct[i].total} £</td>
+                        <td>${dataProduct[i].category}</td>
+                        <td>${dataProduct[i].count}</td>
+                        <td><button onclick=updateData(${i}) id="update">Update</button></td>
+                        <td><button onclick=deleteData(${i}) id="delete">Delete</button></td>
+                    <tr>
+                    `;
             }
         }
     }
@@ -351,4 +342,3 @@ function searchData(value) {
 }
 
 // Clean Data
-
