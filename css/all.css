@@ -75,11 +75,12 @@ input:focus::placeholder {
     border-radius: 1em;
     background-color: var(--FourthColor);
     color: var(--PrimaryColor);
+    overflow-y: auto;
 }
 
-/* .price #total::-webkit-scrollbar {
+.price #total::-webkit-scrollbar {
     display: none;
-} */
+}
 
 #total::before {
     content: "Total=";
