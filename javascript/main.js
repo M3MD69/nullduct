@@ -18,6 +18,7 @@ function getTotal() {
         total.style.backgroundColor = 'var(--ThirdColor)';
     } else {
         total.style.backgroundColor = 'var(--FourthColor)';
+        total.innerHTML = '';
     }
 }
 
@@ -106,6 +107,8 @@ function showData() {
     } else {
         deleteAll.innerHTML = '';
     }
+
+    getTotal();
 }
 showData();
 
@@ -129,7 +132,8 @@ function updateData(i) {
     taxes.value = dataProduct[i].taxes;
     ads.value = dataProduct[i].ads;
     discount.value = dataProduct[i].discount;
-    total.innerHTML = dataProduct[i].total;
+    // total.innerHTML = dataProduct[i].total;
+    getTotal();
     category.value = dataProduct[i].category;
     count.value = dataProduct[i].count;
 
