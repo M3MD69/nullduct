@@ -10,7 +10,6 @@ let title = document.getElementById('title'),
     mood = 'Create',
     tmp;
 
-// Get Total
 function getTotal() {
     if (price.value != '') {
         let result = (+price.value + +taxes.value + +ads.value) - +discount.value;
@@ -22,7 +21,6 @@ function getTotal() {
     }
 }
 
-// Save Local Storage
 let dataProduct;
 if (localStorage.product != null) {
     dataProduct = JSON.parse(localStorage.product);
@@ -30,7 +28,6 @@ if (localStorage.product != null) {
     dataProduct = [];
 }
 
-// Create Product
 create.addEventListener("click", () => {
     let newProduct = {
         title: title.value,
@@ -42,15 +39,6 @@ create.addEventListener("click", () => {
         category: category.value,
         count: count.value
     }
-
-    // // Count
-    // if (newProduct.count > 1) {
-    //     for (let i = 0; i < newProduct.count; i++) {
-    //         dataProduct.push(newProduct);
-    //     }
-    // } else {
-    //     dataProduct.push(newProduct);
-    // }
 
     if (title.value != '' &&
         price.value != '' &&
@@ -69,7 +57,6 @@ create.addEventListener("click", () => {
     showData();
 });
 
-// Clear Inputs
 function clearData() {
     title.value = '';
     price.value = '';
@@ -81,7 +68,6 @@ function clearData() {
     count.value = '';
 }
 
-// Read
 function showData() {
     let table = '';
     for (let i = 0; i < dataProduct.length; i++) {
@@ -116,7 +102,6 @@ function showData() {
 }
 showData();
 
-// Delete
 function deleteData(i) {
     dataProduct.splice(i, 1);
     localStorage.product = JSON.stringify(dataProduct);
@@ -129,14 +114,12 @@ function deleteAll() {
     showData();
 }
 
-// Update
 function updateData(i) {
     title.value = dataProduct[i].title;
     price.value = dataProduct[i].price;
     taxes.value = dataProduct[i].taxes;
     ads.value = dataProduct[i].ads;
     discount.value = dataProduct[i].discount;
-    // total.innerHTML = dataProduct[i].total;
     getTotal();
     category.value = dataProduct[i].category;
     count.value = dataProduct[i].count;
@@ -151,7 +134,6 @@ function updateData(i) {
     });
 }
 
-// Search
 function getSearchMood() {
 
     let searchMood = 'Title',
@@ -340,5 +322,3 @@ function searchData(value) {
     }
     document.getElementById('tbody').innerHTML = table;
 }
-
-// Clean Data
