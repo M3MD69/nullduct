@@ -32,11 +32,17 @@
         <br>
         <div class="outputs">
             <div class="searchBlock">
-                <input id="search" type="text" placeholder="Search">
-                <div class="btnSearch">
-                    <button id="searchTitle">Search By Title</button>
-                    <button id="searchByCategory">Search By Category</button>
-                </div>
+                <input onkeyup="searchData(this.value)" id="search" type="text" placeholder="Search By Title">
+                <select id="searchSelector" onchange="getSearchMood()">
+                    <option value="0" selected>Title</option>
+                    <option value="1">Price</option>
+                    <option value="2">Taxes</option>
+                    <option value="3">Ads</option>
+                    <option value="4">Discount</option>
+                    <option value="5">Total</option>
+                    <option value="6">Category</option>
+                    <option value="7">Count</option>
+                </select>
             </div>
             <div id="deleteAll">
 
